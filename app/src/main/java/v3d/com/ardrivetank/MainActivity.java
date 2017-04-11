@@ -448,7 +448,7 @@ public class MainActivity extends AppCompatActivity {
                 browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
                 url = text_url.getText().toString().trim();
                 //Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
-                browser.loadUrl("http://192.168.1.5:8080");
+                browser.loadUrl("http://" + url);
             }
         });
     }
