@@ -13,8 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
     OutputStream outStream;
 
+    //dichiarazioni var per lo streaming video
+
+    WebView browser;
+    Button btn_connetti_streaming;
+    EditText text_url;
+    String url;
+
     //fine dichiarazione variabili
 
 //__________________________________________________________________________________________________
@@ -69,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
+
 
 
         assegnazioni();
@@ -90,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
         comandi();
 
+        avvio_streaming();
+
 
     }//fine OnCreate
 
@@ -109,6 +122,12 @@ public class MainActivity extends AppCompatActivity {
         led_vuoto = (ImageButton) findViewById(R.id.led_ardrivetank_vuoto);
 
         label_nome_dispositivo_connesso = (TextView) findViewById(R.id.text_nome_dispositivo_connesso);
+
+        browser = (WebView) findViewById(R.id.id_browser);
+        btn_connetti_streaming = (Button) findViewById(R.id.id_connetti_stream);
+        text_url = (EditText) findViewById(R.id.id_url);
+
+
 
     }
 
@@ -420,6 +439,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Erroe_2: " + e.toString(), Toast.LENGTH_LONG).show();
             }
         // }while(send_message == false);
+    }
+
+    public void avvio_streaming(){
+        btn_connetti_streaming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
+                url = text_url.getText().toString().trim();
+                //Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+                browser.loadUrl("http://192.168.1.5:8080");
+            }
+        });
     }
 
 
