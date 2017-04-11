@@ -126,9 +126,6 @@ public class MainActivity extends AppCompatActivity {
         browser = (WebView) findViewById(R.id.id_browser);
         btn_connetti_streaming = (Button) findViewById(R.id.id_connetti_stream);
         text_url = (EditText) findViewById(R.id.id_url);
-
-
-
     }
 
     //lampeggiamento led
@@ -445,14 +442,19 @@ public class MainActivity extends AppCompatActivity {
         btn_connetti_streaming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
-                url = text_url.getText().toString().trim();//prendo l'url dalla EditText
-                //se l'utente non inserisce anche http://
-                if(!url.contains("http://")){
-                browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
-                }else if(url.contains("http://")){//altrimenti se lo inserisce
-                    url.replace("http://","");//glielo cancello
-                    browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
+                if (text_url.getText() != null) {
+                    browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
+                    url = text_url.getText().toString().trim();//prendo l'url dalla EditText
+                    //se l'utente non inserisce anche http://
+                    if (!url.contains("http://")) {
+                        browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
+                    } else if (url.contains("http://")) {//altrimenti se lo inserisce
+                        url.replace("http://", "");//glielo cancello
+                        browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
+                    }
+                }else if(text_url.getText() == null)
+                {
+                    Toast.makeText(getApplicationContext(), "Inserisci un URL", Toast.LENGTH_SHORT).show();
                 }
             }
         });
