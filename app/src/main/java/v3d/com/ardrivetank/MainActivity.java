@@ -446,12 +446,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
-                url = text_url.getText().toString().trim();
+                url = text_url.getText().toString().trim();//prendo l'url dalla EditText
+                //se l'utente non inserisce anche http://
                 if(!url.contains("http://")){
-                browser.loadUrl("http://" + url + "/video");
-                }else if(url.contains("http://")){
-                    url.replace("http://","");
-                    browser.loadUrl("http://" + url + "/video");
+                browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
+                }else if(url.contains("http://")){//altrimenti se lo inserisce
+                    url.replace("http://","");//glielo cancello
+                    browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
                 }
             }
         });
