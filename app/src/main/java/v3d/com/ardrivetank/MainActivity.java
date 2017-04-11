@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Set<BluetoothDevice> pairedDevices = bt_adapter.getBondedDevices();//prendo l'insieme dei dispositivi già accoppiati
 
     //gestione nuovi device BT non accoppiati in passato
-    BroadcastReceiver receiver; //Trasmissione
+    BroadcastReceiver receiver;
     String NuovodeviceName;
     String NuovodeviceAddress;
     int NuovodeviceLegame;
@@ -80,16 +80,13 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
 
-
-
         assegnazioni();
 
         //disattivo il led verde
         led_rosso.setVisibility(View.GONE);//disattivazione
         led_verde.setVisibility(View.GONE);//disattivazione
         led_vuoto.setVisibility(View.VISIBLE);//attivazione
-        label_nome_dispositivo_connesso.setText("Non Connesso - BT disattivato");//testo
-
+        label_nome_dispositivo_connesso.setText(R.string.no_connessione_bt_disabilitato_IT);//testo
 
         configurazione_grafica_lstView();
 
@@ -102,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         comandi();
 
         avvio_streaming();
-
 
     }//fine OnCreate
 
@@ -183,10 +179,9 @@ public class MainActivity extends AppCompatActivity {
                 resetConnection();
                 led_rosso.setVisibility(View.VISIBLE);
                 led_verde.setVisibility(View.GONE);
-                label_nome_dispositivo_connesso.setText("Connessione...");
+                label_nome_dispositivo_connesso.setText(R.string.connessione_IT);
                 bt_adapter.cancelDiscovery();//termina la ricerca
                 final String info = ((TextView) view).getText().toString();//prendo l'elemento cliccato
-                //Toast.makeText(getApplicationContext(), info.toString(), Toast.LENGTH_LONG).show();
                 String address = info.substring(info.length()-17);//recupero l'indirizzo MAC
                 BluetoothDevice connect_device = bt_adapter.getRemoteDevice(address);
                 try{
@@ -196,16 +191,17 @@ public class MainActivity extends AppCompatActivity {
                     led_rosso.setVisibility(View.GONE);
                     led_vuoto.setVisibility(View.GONE);
                     led_verde.setVisibility(View.VISIBLE);
-                    label_nome_dispositivo_connesso.setText("Connesso a: " + address);//faccio apparire a chi è connesso
+                    label_nome_dispositivo_connesso.setText(R.string.connesso_a_IT + " " + address);//faccio apparire a chi è connesso
                 }catch (IOException e){
                     e.printStackTrace();
                     resetConnection();
-                    label_nome_dispositivo_connesso.setText("Connessione fallita!");
+                    label_nome_dispositivo_connesso.setText(R.string.connessione_fallita_IT);
                 }
             }
         });
     }
 
+    /*
     protected void OnDestroy() {
         super.onDestroy();
         if (bt_adapter != null) {
@@ -213,12 +209,13 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(receiver);//elimino la registrazione della trasmissione
         }
     }
+    */
 
     //la void SCAN_BT gestisce il click del pulsante
     public void scan_bt() {
         adapter.clear();
         if (bt_adapter == null) {
-            Toast.makeText(getApplicationContext(), R.string.bt_non_supportato, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.bt_non_supportato_IT, Toast.LENGTH_LONG).show();
         } else {
             if (!bt_adapter.isEnabled()) {//se il BT è disabilitato
                 Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);//chiede di attivare il chip BT
@@ -232,8 +229,8 @@ public class MainActivity extends AppCompatActivity {
             } else {//se invece il BT è già attivo
                 lista_dispositivi_accoppiati();//lista dispositivi accoppiati in passato
                 lista_nuovi_dispositivi();//lista nuovi dispositivi
-                label_nome_dispositivo_connesso.setText("Non Connesso - Bt abilitato. Ricerca altri dispositivi BT");
-                Toast.makeText(getApplicationContext(), R.string.mess_btAttivo, Toast.LENGTH_LONG).show();//messaggino che dice che bt attivo
+                label_nome_dispositivo_connesso.setText(R.string.non_connesso_bt_disabilitato_ricerca_altri_dispositivi_bt_IT);
+                Toast.makeText(getApplicationContext(), R.string.mess_btAttivo_IT, Toast.LENGTH_LONG).show();//messaggino che dice che bt attivo
             }
         }
     }
@@ -255,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.add(device.getName() + "\n" + device.getAddress());//aggiungi alla listview Nome e Indirizzo
             }
         }else {//altrimenti
-            adapter.add(R.string.device_accoppiati_non_trovati);//fai apparire sto mess
+            adapter.add(R.string.device_accoppiati_non_trovati_IT);//fai apparire sto mess
         }
     }
 
@@ -423,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 outStream = btsocket.getOutputStream();
             } catch (IOException e) {
-                Toast.makeText(getApplicationContext(), "Erroe_1: " + e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error_1: " + e.toString(), Toast.LENGTH_LONG).show();
             }
 
             String mess = data;
@@ -433,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
                 outStream.write(msgBuffer);
                 //Toast.makeText(getApplicationContext(), "Send: " + mess.toString(), Toast.LENGTH_LONG).show();
             } catch (IOException e) {
-                Toast.makeText(getApplicationContext(), "Erroe_2: " + e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Error_2: " + e.toString(), Toast.LENGTH_LONG).show();
             }
         // }while(send_message == false);
     }
@@ -445,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                 if (text_url.getText() != null) {
                     browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
                     url = text_url.getText().toString().trim();//prendo l'url dalla EditText
-                    //se l'utente non inserisce anche http://
+                    //se l'utente non inserisce http://
                     if (!url.contains("http://")) {
                         browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
                     } else if (url.contains("http://")) {//altrimenti se lo inserisce
@@ -454,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else if(text_url.getText() == null)
                 {
-                    Toast.makeText(getApplicationContext(), "Inserisci un URL", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.inserisci_url_IT, Toast.LENGTH_SHORT).show();
                 }
             }
         });

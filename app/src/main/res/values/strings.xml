@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">ArDriveTank</string>
-    <string name="mess_btAttivo">Bt Attivo</string>
-    <string name="device_accoppiati_non_trovati">Dispositivi accoppiati non trovati</string>
-    <string name="bt_non_supportato">Bt non supportato</string>
+    <string name="mess_btAttivo_IT">Bt Attivo</string>
+    <string name="device_accoppiati_non_trovati_IT">Dispositivi accoppiati non trovati</string>
+    <string name="bt_non_supportato_IT">Bt non supportato</string>
+    <string name="inserisci_url_IT">Inserisci un url</string>
+    <string name="no_connessione_bt_disabilitato_IT">"Non Connesso - BT disattivato"</string>
+    <string name="connessione_IT">Connessione...</string>
+    <string name="connesso_a_IT">Connesso a:</string>
+    <string name="connessione_fallita_IT">Connessione fallita!</string>
+    <string name="non_connesso_bt_disabilitato_ricerca_altri_dispositivi_bt_IT">
+        Non Connesso - Bt abilitato. Ricerca altri dispositivi BT</string>
+
+
+
+    <string name="title_activity_pre_main">PreMainActivity</string>
 </resources>

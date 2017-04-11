@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sfondo"
+    android:background="@drawable/control_ar_drive_tank"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="v3d.com.ardrivetank.PreMainActivity">
+
+    <ImageButton
+        android:id="@+id/id_UK_button"
+        android:layout_width="98dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="135dp"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/uk" />
+
+    <ImageButton
+        android:id="@+id/id_PT_button"
+        android:layout_width="98dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="117dp"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/portugal" />
+
+    <ImageButton
+        android:id="@+id/id_BR_button"
+        android:layout_width="98dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="117dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/brazil" />
+
+    <ImageButton
+        android:id="@+id/id_IT_button"
+        android:layout_width="98dp"
+        android:layout_height="75dp"
+        android:layout_marginRight="142dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/italy" />
+</android.support.constraint.ConstraintLayout>
