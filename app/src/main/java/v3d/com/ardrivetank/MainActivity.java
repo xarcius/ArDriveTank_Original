@@ -447,8 +447,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
                 url = text_url.getText().toString().trim();
-                //Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
-                browser.loadUrl("http://" + url);
+                if(!url.contains("http://")){
+                browser.loadUrl("http://" + url + "/video");
+                }else if(url.contains("http://")){
+                    url.replace("http://","");
+                    browser.loadUrl("http://" + url + "/video");
+                }
             }
         });
     }
