@@ -24,9 +24,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PreMainActivity">
-
-
+        <activity
+            android:name=".PreMainActivity">
 
         </activity>
 

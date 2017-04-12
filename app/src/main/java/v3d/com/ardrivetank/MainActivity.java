@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
     EditText text_url;
     String url;
 
+    //LANGUAGE
+    String language;
+
     //fine dichiarazione variabili
 
 //__________________________________________________________________________________________________
@@ -79,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
+
+        Intent myintent = new Intent();
+        language = myintent.getExtras().getString("LANGUAGE");
 
         assegnazioni();
 
@@ -105,19 +111,19 @@ public class MainActivity extends AppCompatActivity {
     //assegnazione delle variabili ai widgete
     public void assegnazioni(){
         //ASSEGNAZIONE
-        imgbtn_bt = (ImageButton) findViewById(R.id.imBtn_bt); //assegno la variabile al widget
-        list__bt = (ListView) findViewById(R.id.list_bt);
+        imgbtn_bt = (ImageButton) findViewById(R.id.id_imBtn_bt); //assegno la variabile al widget
+        list__bt = (ListView) findViewById(R.id.id_list_bt);
 
-        imgbtn_up = (ImageButton) findViewById(R.id.up_button);
-        imgbtn_back = (ImageButton) findViewById(R.id.back_button);
-        imgbtn_right = (ImageButton) findViewById(R.id.right_button);
-        imgbtn_left = (ImageButton) findViewById(R.id.left_button);
+        imgbtn_up = (ImageButton) findViewById(R.id.id_up_button);
+        imgbtn_back = (ImageButton) findViewById(R.id.id_back_button);
+        imgbtn_right = (ImageButton) findViewById(R.id.id_right_button);
+        imgbtn_left = (ImageButton) findViewById(R.id.id_left_button);
 
-        led_rosso = (ImageButton) findViewById(R.id.led_ardrivetank_rosso);
-        led_verde = (ImageButton) findViewById(R.id.led_ardrivetank_verde);
-        led_vuoto = (ImageButton) findViewById(R.id.led_ardrivetank_vuoto);
+        led_rosso = (ImageButton) findViewById(R.id.id_led_ardrivetank_rosso);
+        led_verde = (ImageButton) findViewById(R.id.id_led_ardrivetank_verde);
+        led_vuoto = (ImageButton) findViewById(R.id.id_led_ardrivetank_vuoto);
 
-        label_nome_dispositivo_connesso = (TextView) findViewById(R.id.text_nome_dispositivo_connesso);
+        label_nome_dispositivo_connesso = (TextView) findViewById(R.id.id_text_nome_dispositivo_connesso);
 
         browser = (WebView) findViewById(R.id.id_browser);
         btn_connetti_streaming = (Button) findViewById(R.id.id_connetti_stream);
@@ -179,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 resetConnection();
                 led_rosso.setVisibility(View.VISIBLE);
                 led_verde.setVisibility(View.GONE);
-                label_nome_dispositivo_connesso.setText(R.string.connessione_IT);
+                lg_mess_connessione();//si occupa dell'apparizione del testo nella lingua selezionata per questo messaggio
                 bt_adapter.cancelDiscovery();//termina la ricerca
                 final String info = ((TextView) view).getText().toString();//prendo l'elemento cliccato
                 String address = info.substring(info.length()-17);//recupero l'indirizzo MAC
@@ -199,6 +205,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void lg_mess_connessione(){
+        switch (language){
+            case "it":
+                label_nome_dispositivo_connesso.setText(R.string.connessione_IT);
+            break;
+            case "br":
+
+            break;
+            case "uk":
+
+            break;
+            case "pt":
+
+            break;
+        }
     }
 
     /*

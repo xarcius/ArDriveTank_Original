@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sfondo"
+    android:id="@+id/id_sfondo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/control_ar_drive_tank"
@@ -14,7 +14,7 @@
 
 
     <ImageButton
-        android:id="@+id/imBtn_bt"
+        android:id="@+id/id_imBtn_bt"
         android:layout_width="43dp"
         android:layout_height="69dp"
         android:layout_marginBottom="8dp"
@@ -31,7 +31,7 @@
     //UP-button
 
     <ImageButton
-        android:id="@+id/up_button"
+        android:id="@+id/id_up_button"
         android:layout_width="76dp"
         android:layout_height="73dp"
         android:layout_marginLeft="16dp"
@@ -44,7 +44,7 @@
 
 
     <ImageButton
-        android:id="@+id/back_button"
+        android:id="@+id/id_back_button"
         android:layout_width="75dp"
         android:layout_height="73dp"
         android:layout_marginBottom="16dp"
@@ -58,7 +58,7 @@
     //left-button
 
     <ImageButton
-        android:id="@+id/left_button"
+        android:id="@+id/id_left_button"
         android:layout_width="75dp"
         android:layout_height="73dp"
         android:layout_marginLeft="338dp"
@@ -76,7 +76,7 @@
     //right-button
 
     <ImageButton
-        android:id="@+id/right_button"
+        android:id="@+id/id_right_button"
         android:layout_width="75dp"
         android:layout_height="73dp"
         android:layout_marginEnd="44dp"
@@ -92,19 +92,19 @@
         app:srcCompat="@drawable/new_pulsanti_right" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/id_versione"
         android:layout_width="97dp"
         android:layout_height="23dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/control_ar_drive_tank"
-        android:text="V: 0.1.2.3"
+        android:text="V: 0.1.2.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ImageButton
-        android:id="@+id/led_ardrivetank_vuoto"
+        android:id="@+id/id_led_ardrivetank_vuoto"
         android:layout_width="40dp"
         android:layout_height="39dp"
         android:layout_marginEnd="32dp"
@@ -120,7 +120,7 @@
         app:srcCompat="@drawable/led_vuoto_35x35" />
 
     <ImageButton
-        android:id="@+id/led_ardrivetank_rosso"
+        android:id="@+id/id_led_ardrivetank_rosso"
         android:layout_width="40dp"
         android:layout_height="39dp"
         android:layout_marginEnd="32dp"
@@ -136,7 +136,7 @@
         app:srcCompat="@drawable/led_rosso_35x35" />
 
     <ImageButton
-        android:id="@+id/led_ardrivetank_verde"
+        android:id="@+id/id_led_ardrivetank_verde"
         android:layout_width="40dp"
         android:layout_height="39dp"
         android:layout_marginLeft="192dp"
@@ -152,7 +152,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/text_nome_dispositivo_connesso"
+        android:id="@+id/id_text_nome_dispositivo_connesso"
         android:layout_width="165dp"
         android:layout_height="63dp"
         android:layout_marginEnd="8dp"
@@ -168,7 +168,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/list_bt"
+        android:id="@+id/id_list_bt"
         android:layout_width="140dp"
         android:layout_height="73dp"
         android:layout_marginEnd="8dp"
