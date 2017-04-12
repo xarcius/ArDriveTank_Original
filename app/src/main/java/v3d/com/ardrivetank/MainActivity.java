@@ -82,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
-
+        /*
         Intent myintent = new Intent();
         language = myintent.getExtras().getString("LANGUAGE");
+        */
 
         assegnazioni();
 
@@ -208,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void lg_mess_connessione(){
+        /*
         switch (language){
             case "it":
                 label_nome_dispositivo_connesso.setText(R.string.connessione_IT);
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
             break;
         }
+        */
     }
 
     /*
