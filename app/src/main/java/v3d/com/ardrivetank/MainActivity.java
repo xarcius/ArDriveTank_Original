@@ -266,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             lista_dispositivi_accoppiati();
+            lista_nuovi_dispositivi();//AGGIUNTO IL 02-05-2017 mentre eri a lezione da GITHUB manualmente
         }
     }
 
