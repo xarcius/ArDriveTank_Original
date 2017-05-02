@@ -1,8 +1,10 @@
 package v3d.com.ardrivetank;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +17,7 @@ import java.net.Inet4Address;
 public class PreMainActivity extends AppCompatActivity {
 
     String scelta_linguaggio;
-    ImageButton BR_button, IT_button, UK_button, PT_button;
+    ImageButton BR_button, IT_button, UK_button, PT_button, info_button;
 
 
     @Override
@@ -28,11 +30,13 @@ public class PreMainActivity extends AppCompatActivity {
         IT_button = (ImageButton) findViewById(R.id.id_IT_button);
         UK_button = (ImageButton) findViewById(R.id.id_UK_button);
         PT_button = (ImageButton) findViewById(R.id.id_PT_button);
+        info_button = (ImageButton) findViewById(R.id.id_info_btn);
 
         br_click();
         it_click();
         uk_click();
         pt_click();
+        click_info_btn();
     }
 
     public void br_click(){
@@ -76,8 +80,23 @@ public class PreMainActivity extends AppCompatActivity {
     }
 
     public void open_main(String lang){
+        lang = scelta_linguaggio;
         Intent myintent = new Intent(this,MainActivity.class);
-        myintent.putExtra("LANGUAGE",scelta_linguaggio);
+        myintent.putExtra("LANGUAGE", lang);
         startActivity(myintent);
+    }
+
+    //avviso quando clicca sul tasto INFO
+    public void click_info_btn(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Info");
+        builder.setMessage("App creata da Nico");
+        builder.setPositiveButton("Chiudi", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();//chiude l'avviso
+            }
+        });
+        builder.show();//mostra l'avviso
     }
 }

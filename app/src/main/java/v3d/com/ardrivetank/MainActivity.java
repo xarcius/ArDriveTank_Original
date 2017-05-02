@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter(); //cerca i dispositivi nelle vicinanze con cui comunicare
 
     private ArrayAdapter adapter = null;//permette di gestire dei dati
-                                        // memorizzati sotto forma di array
+                                        //memorizzati sotto forma di array
                                         //Gestire quello che si è trovato
 
     Set<BluetoothDevice> pairedDevices = bt_adapter.getBondedDevices();//prendo l'insieme dei dispositivi già accoppiati
@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 scan_bt();
             }
-            //fine setOnClickListener
         });
     }
 
@@ -467,7 +466,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (text_url.getText() != null) {
                     browser.getSettings().setJavaScriptEnabled(true);//attivo Javascript per la WEBVIEW
-                    url = text_url.getText().toString().trim();//prendo l'url dalla EditText
+                    url = text_url.getText().toString();//prendo l'url dalla EditText
                     //se l'utente non inserisce http://
                     if (!url.contains("http://")) {
                         browser.loadUrl("http://" + url + "/video");//avvio lo streaming video-diretto
