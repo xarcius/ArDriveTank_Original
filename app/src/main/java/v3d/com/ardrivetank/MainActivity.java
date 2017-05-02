@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
     public void configurazione_grafica_lstView(){
         //CONFIGURAZIONE BT
         adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1);//configurazione grafica che avrà la listview (font, ecc..)
-        list__bt.setAdapter(adapter);//setto la listview in modo che riceva la lista di altri dispositi con BT attivo
+        list__bt.setAdapter(adapter);//setto la grafica della LISTVIEW
     }
 
     //si occupa di ciò che accade quando viene premuto il tasto del BT
