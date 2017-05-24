@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton imgbtn_bt; //dichiaro il bottone-immagine
     ListView list__bt;//dichiaro la listview dove vedrò tutti i dispositivi bt abilitati
-    ImageButton imgbtn_up, imgbtn_back, imgbtn_right, imgbtn_left;
-    ImageButton led_vuoto, led_rosso, led_verde;
-    ImageButton setting;
-    TextView label_nome_dispositivo_connesso;
+    ImageButton imgbtn_forward, imgbtn_back, imgbtn_right, imgbtn_left;//bottoni avanti,indietro,destra,sinistra
+    ImageButton led_vuoto, led_rosso, led_verde;//immagini led
+    //ImageButton setting;
+    TextView label_nome_dispositivo_connesso;//testo del dispositivo a cui è connesso
 
     private BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter(); //cerca i dispositivi nelle vicinanze con cui comunicare
 
     private ArrayAdapter adapter = null;//permette di gestire dei dati
                                         //memorizzati sotto forma di array
-                                        //Gestire quello che si è trovato
+                                        //Gestisce quello che si è trovato
 
     Set<BluetoothDevice> pairedDevices = bt_adapter.getBondedDevices();//prendo l'insieme dei dispositivi già accoppiati
 
@@ -52,18 +52,17 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver receiver;
     String NuovodeviceName;
     String NuovodeviceAddress;
-    int NuovodeviceLegame;
-    String StatoLegameDevice;
+    //int NuovodeviceLegame;
+    //String StatoLegameDevice;
 
     int counter = 0;
     boolean connesso = false;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//è un numero di identificazione unico assegnato a un hardware (numero che viene assegnato all'HC-05)
     BluetoothSocket btsocket = null; //creo una variabile di tipo socket per la trasmissione e ricezione dati
 
-    OutputStream outStream;
+    OutputStream outStream;//si occupa dell'invio dei comandi all'HC-05
 
-    //dichiarazioni var per lo streaming video
-
+    //dichiarazioni variabili per lo streaming video
     WebView browser;
     Button btn_connetti_streaming;
     EditText text_url;
@@ -71,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     //LANGUAGE
     String language;
+
+    EnLanguageClass en = new EnLanguageClass();
+    PtLanguageClass pt = new PtLanguageClass();
+    BrLanguageClass br = new BrLanguageClass();
 
     //fine dichiarazione variabili
 
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
+        //si occupa di prendere la scelta della LINGUA
         /*
         Intent myintent = new Intent();
         language = myintent.getExtras().getString("LANGUAGE");
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         assegnazioni();
 
-        //disattivo il led verde
+        //disattivo il led verde e rosso
         led_rosso.setVisibility(View.GONE);//disattivazione
         led_verde.setVisibility(View.GONE);//disattivazione
         led_vuoto.setVisibility(View.VISIBLE);//attivazione
@@ -107,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
         avvio_streaming();
 
+
+
     }//fine OnCreate
 
     //assegnazione delle variabili ai widgete
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtn_bt = (ImageButton) findViewById(R.id.id_imBtn_bt); //assegno la variabile al widget
         list__bt = (ListView) findViewById(R.id.id_list_bt);
 
-        imgbtn_up = (ImageButton) findViewById(R.id.id_up_button);
+        imgbtn_forward = (ImageButton) findViewById(R.id.id_forward_button);
         imgbtn_back = (ImageButton) findViewById(R.id.id_back_button);
         imgbtn_right = (ImageButton) findViewById(R.id.id_right_button);
         imgbtn_left = (ImageButton) findViewById(R.id.id_left_button);
@@ -147,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
                         led_rosso.setVisibility(View.GONE);//faccio sparire il led rosso
                         led_vuoto.setVisibility(View.VISIBLE);//faccio apparire il led vuoto
                     } else {//dispari
-                        led_rosso.setVisibility(View.VISIBLE);
-                        led_vuoto.setVisibility(View.GONE);
+                        led_rosso.setVisibility(View.VISIBLE);//faccio apparire il led rosso
+                        led_vuoto.setVisibility(View.GONE);//sparire il led vuoto
                     }
                 }
 
@@ -156,14 +162,14 @@ public class MainActivity extends AppCompatActivity {
                     //quando il timer finisce, fai qualcosa
                 }
             }.start();
-        }//FINE [if connesso == true]_______________________________________________________________
+        }//FINE [if connesso == true]
     }
 
     //configurazione grafica della LISTVIEW
     public void configurazione_grafica_lstView(){
         //CONFIGURAZIONE BT
         adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1);//configurazione grafica che avrà la listview (font, ecc..)
-        list__bt.setAdapter(adapter);//setto la listview in modo che riceva la lista di altri dispositi con BT attivo
+        list__bt.setAdapter(adapter);//setto la grafica della listview
     }
 
     //si occupa di ciò che accade quando viene premuto il tasto del BT
@@ -187,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 led_verde.setVisibility(View.GONE);
                 lg_mess_connessione();//si occupa dell'apparizione del testo nella lingua selezionata per questo messaggio
                 bt_adapter.cancelDiscovery();//termina la ricerca
-                final String info = ((TextView) view).getText().toString();//prendo l'elemento cliccato
+                final String info = ((TextView) view).getText().toString();//prendo l'elemento cliccato ossia "dalla view cliccata prendi il testo"
                 String address = info.substring(info.length()-17);//recupero l'indirizzo MAC
                 BluetoothDevice connect_device = bt_adapter.getRemoteDevice(address);
                 try{
@@ -266,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             lista_dispositivi_accoppiati();
+            lista_nuovi_dispositivi();
         }
     }
 
@@ -352,13 +359,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forward(){
-        imgbtn_up.setOnTouchListener(new View.OnTouchListener() {
+        imgbtn_forward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     try{
                         writeData("F");
                     }catch (Exception ex){
-                        //Toast.makeText(getApplicationContext(), "ERR: " + ex.toString(), Toast.LENGTH_SHORT).show();
+
                     }
                 }else if(event.getAction() == MotionEvent.ACTION_UP){
                     try{
@@ -443,16 +450,16 @@ public class MainActivity extends AppCompatActivity {
     public void writeData(String data) {
         //do {
             try {
-                outStream = btsocket.getOutputStream();
+                outStream = btsocket.getOutputStream();//si occupa dell'invio del comando
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Error_1: " + e.toString(), Toast.LENGTH_LONG).show();
             }
 
             String mess = data;
-            byte[] msgBuffer = mess.getBytes();
+            byte[] msgBuffer = mess.getBytes();//trasformo in Bytes il comando
 
             try {
-                outStream.write(msgBuffer);
+                outStream.write(msgBuffer);//incia il comando
                 //Toast.makeText(getApplicationContext(), "Send: " + mess.toString(), Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Error_2: " + e.toString(), Toast.LENGTH_LONG).show();
@@ -480,6 +487,70 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void mess_language(String lang, int numero_messaggio){
+        if(lang == "en"){
+            if(numero_messaggio == 1){
+                en.getBtOn();
+            }else if(numero_messaggio == 2){
+                en.getPairedDevicesNotFound();
+            }else if(numero_messaggio == 3){
+                en.getBtNotSupported();
+            }else if(numero_messaggio == 4){
+                en.getInsertUrl();
+            }else if(numero_messaggio == 5){
+                en.getNotConnected();
+            }else if(numero_messaggio == 6){
+                en.getConnecting();
+            }else if(numero_messaggio == 7){
+                en.getConnected();
+            }else if(numero_messaggio == 8){
+                en.getConnectionFailed();
+            }else if(numero_messaggio == 9){
+                en.getNotConnectedBtEnabled();
+            }
+        }
+
+        else if(lang == "pt"){
+            if(numero_messaggio == 1){
+                pt.getBtAtivado();
+            }else if(numero_messaggio == 2){
+                pt.getDispositivosEmparelhadosNãoEncontrados();
+            }else if(numero_messaggio == 3){
+                pt.getBtNãoSuportado();
+            }else if(numero_messaggio == 4){
+                pt.getNãoLigando();
+            }else if(numero_messaggio == 5){
+                pt.getALigar();
+            }else if(numero_messaggio == 6){
+                pt.getLigando();
+            }else if(numero_messaggio == 7){
+                pt.getLigaçãoFalhada();
+            }else if(numero_messaggio == 8){
+                pt.getNãoLigandoBtAtivado();
+            }
+        }
+
+        else if(lang == "br"){
+            if(numero_messaggio == 1){
+                br.getAtivado();
+            }else if(numero_messaggio == 2){
+                br.getInserirUmaUrl();
+            }else if(numero_messaggio == 3){
+                br.getNãoConectado();
+            }else if(numero_messaggio == 4){
+                br.getConectando();
+            }else if(numero_messaggio == 5){
+                br.getConectadoA();
+            }else if(numero_messaggio == 6){
+                br.getConexãoFalhada();
+            }else if(numero_messaggio == 7){
+                br.getNãoConectadoBtAtivado();
+            }
+        }
+
+
     }
 
 

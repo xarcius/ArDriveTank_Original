@@ -31,7 +31,7 @@
     //UP-button
 
     <ImageButton
-        android:id="@+id/id_up_button"
+        android:id="@+id/id_forward_button"
         android:layout_width="76dp"
         android:layout_height="73dp"
         android:layout_marginLeft="16dp"
@@ -89,7 +89,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/control_ar_drive_tank"
-        android:text="   V: 0.1.2.7"
+        android:text="   V: 0.1.2.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -159,15 +159,15 @@
 
     <ListView
         android:id="@+id/id_list_bt"
-        android:layout_width="140dp"
-        android:layout_height="73dp"
+        android:layout_width="141dp"
+        android:layout_height="58dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/control_ar_drive_tank"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="444dp" />
+        tools:layout_editor_absoluteX="443dp" />
 
     <Button
         android:id="@+id/id_connetti_stream"
