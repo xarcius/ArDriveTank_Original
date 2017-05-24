@@ -111,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         avvio_streaming();
 
-
-
     }//fine OnCreate
 
     //assegnazione delle variabili ai widgete
@@ -328,7 +326,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
     }
 
-
     //si occupa di chiudere la connessione
     private void resetConnection(){
         if(btsocket != null){//se la connessione è stabilita
@@ -520,14 +517,16 @@ public class MainActivity extends AppCompatActivity {
             }else if(numero_messaggio == 3){
                 pt.getBtNãoSuportado();
             }else if(numero_messaggio == 4){
-                pt.getNãoLigando();
+                pt.getInserirUmURL();
             }else if(numero_messaggio == 5){
-                pt.getALigar();
+                pt.getNãoLigando();
             }else if(numero_messaggio == 6){
-                pt.getLigando();
+                pt.getALigar();
             }else if(numero_messaggio == 7){
-                pt.getLigaçãoFalhada();
+                pt.getLigando();
             }else if(numero_messaggio == 8){
+                pt.getLigaçãoFalhada();
+            }else if(numero_messaggio == 9){
                 pt.getNãoLigandoBtAtivado();
             }
         }
@@ -536,21 +535,23 @@ public class MainActivity extends AppCompatActivity {
             if(numero_messaggio == 1){
                 br.getAtivado();
             }else if(numero_messaggio == 2){
-                br.getInserirUmaUrl();
+                br.getDispositivosEmparelhadosNãoEncontrados();
             }else if(numero_messaggio == 3){
-                br.getNãoConectado();
+                br.getBtNãoSuportado();
             }else if(numero_messaggio == 4){
-                br.getConectando();
+                br.getInserirUmaUrl();
             }else if(numero_messaggio == 5){
-                br.getConectadoA();
+                br.getNãoConectado();
             }else if(numero_messaggio == 6){
-                br.getConexãoFalhada();
+                br.getConectando();
             }else if(numero_messaggio == 7){
+                br.getConectadoA();
+            }else if(numero_messaggio == 8){
+                br.getConexãoFalhada();
+            }else if(numero_messaggio == 9){
                 br.getNãoConectadoBtAtivado();
             }
         }
-
-
     }
 
 

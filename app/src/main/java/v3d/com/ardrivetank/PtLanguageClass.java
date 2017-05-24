@@ -29,30 +29,36 @@ public class PtLanguageClass {
     }
 
         //4
+    public String getInserirUmURL(){
+        String s = "Inserir um URL";
+        return s;
+    }
+
+        //5
     public String getNãoLigando(){
         String s = "Não ligando - Bt desativando";
         return s;
     }
 
-        //5
+        //6
     public String getALigar(){
         String s = "A ligar...";
         return s;
     }
 
-        //6
+        //7
     public String getLigando(){
         String s = "Ligando a: ";
         return s;
     }
 
-        //7
+        //8
     public String getLigaçãoFalhada(){
         String s = "Ligação falhada";
         return s;
     }
 
-        //8
+        //9
     public String getNãoLigandoBtAtivado(){
         String s = "Não ligando - Bt ativando. A procurar outros dispositivos Bt";
         return s;
