@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);//Quando l'app si avvia,
                                                                                   // andrà in LANDSCAPE inverso
-        //si occupa di prendere la scelta della LINGUA
-        /*
+        //si occupa di prendere la scelta della LINGUUA
         Intent myintent = new Intent();
-        language = myintent.getExtras().getString("LANGUAGE");
-        */
+        //language = myintent.getExtras().getString("LANGUAGE");
+        language = myintent.getStringExtra("LANGUAGE");
+
 
         assegnazioni();
 
@@ -189,7 +189,8 @@ public class MainActivity extends AppCompatActivity {
                 resetConnection();
                 led_rosso.setVisibility(View.VISIBLE);
                 led_verde.setVisibility(View.GONE);
-                lg_mess_connessione();//si occupa dell'apparizione del testo nella lingua selezionata per questo messaggio
+                //lg_mess_connessione();//si occupa dell'apparizione del testo nella lingua selezionata per questo messaggio
+                mess_language(language, 6);//messaggio "CONNESSIONE"
                 bt_adapter.cancelDiscovery();//termina la ricerca
                 final String info = ((TextView) view).getText().toString();//prendo l'elemento cliccato ossia "dalla view cliccata prendi il testo"
                 String address = info.substring(info.length()-17);//recupero l'indirizzo MAC
@@ -205,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 }catch (IOException e){
                     e.printStackTrace();
                     resetConnection();
-                    label_nome_dispositivo_connesso.setText(R.string.connessione_fallita_IT);
+                    //label_nome_dispositivo_connesso.setText(R.string.connessione_fallita_IT);
+                    mess_language(language, 8);
                 }
             }
         });

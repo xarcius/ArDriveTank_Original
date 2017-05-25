@@ -82,7 +82,7 @@ public class PreMainActivity extends AppCompatActivity {
     public void open_main(String lang){
         lang = scelta_linguaggio;
         Intent myintent = new Intent(this,MainActivity.class);
-        myintent.putExtra("LANGUAGE", lang);
+        myintent.putExtra("LANGUAGE", lang.toString());
         startActivity(myintent);
     }
 
@@ -90,7 +90,7 @@ public class PreMainActivity extends AppCompatActivity {
     public void click_info_btn(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Info");
-        builder.setMessage("App creata da Nico");
+        builder.setMessage("App creata da Nico. Si ringrazia Marcella Indelicato per le traduzioni");
         builder.setPositiveButton("Chiudi", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
