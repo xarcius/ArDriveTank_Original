@@ -8,11 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.media.Image;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ListView list__bt;//dichiaro la listview dove vedrò tutti i dispositivi bt abilitati
     ImageButton imgbtn_forward, imgbtn_back, imgbtn_right, imgbtn_left;//bottoni avanti,indietro,destra,sinistra
     ImageButton led_vuoto, led_rosso, led_verde;//immagini led
-    //ImageButton setting;
+    ImageButton fari_off, fari_on;
     TextView label_nome_dispositivo_connesso;//testo del dispositivo a cui è connesso
 
     private BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter(); //cerca i dispositivi nelle vicinanze con cui comunicare
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
     PtLanguageClass pt = new PtLanguageClass();
     BrLanguageClass br = new BrLanguageClass();
 
+    public boolean StatoFari = false;
+
     //fine dichiarazione variabili
 
 //__________________________________________________________________________________________________
@@ -111,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
         avvio_streaming();
 
+        icona_faro_on();
+
+        icona_faro_off();
+
     }//fine OnCreate
 
     //assegnazione delle variabili ai widgete
@@ -133,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
         browser = (WebView) findViewById(R.id.id_browser);
         btn_connetti_streaming = (Button) findViewById(R.id.id_connetti_stream);
         text_url = (EditText) findViewById(R.id.id_url);
+
+        fari_off = (ImageButton) findViewById(R.id.id_fari_off);
+        fari_on = (ImageButton) findViewById(R.id.id_fari_on);
     }
 
     //lampeggiamento led
@@ -211,25 +222,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void lg_mess_connessione(){
-        /*
-        switch (language){
-            case "it":
-                label_nome_dispositivo_connesso.setText(R.string.connessione_IT);
-            break;
-            case "br":
-
-            break;
-            case "uk":
-
-            break;
-            case "pt":
-
-            break;
-        }
-        */
     }
 
     /*
@@ -358,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forward(){
-        imgbtn_forward.setOnTouchListener(new View.OnTouchListener() {
+        imgbtn_forward.setOnTouchListener(new OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     try{
@@ -380,7 +372,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void back(){
-        imgbtn_back.setOnTouchListener(new View.OnTouchListener() {
+        imgbtn_back.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -402,7 +394,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void right(){
-        imgbtn_right.setOnTouchListener(new View.OnTouchListener() {
+        imgbtn_right.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -424,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void left(){
-        imgbtn_left.setOnTouchListener(new View.OnTouchListener() {
+        imgbtn_left.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -554,6 +546,35 @@ public class MainActivity extends AppCompatActivity {
                 br.getNãoConectadoBtAtivado();
             }
         }
+    }
+
+    public void icona_faro_on(){
+        fari_on.setOnTouchListener(new OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(StatoFari == false){
+                    writeData("H");
+                    StatoFari = true;
+                    fari_on.setVisibility(View.VISIBLE);
+                    fari_off.setVisibility(View.INVISIBLE);
+                }
+                return false;
+            }
+
+        });
+    }
+
+    public void icona_faro_off(){
+        fari_off.setOnTouchListener(new OnTouchListener(){
+            public boolean onTouch(View v, MotionEvent event){
+             if(StatoFari == true){
+                writeData("H");
+                 StatoFari = false;
+                 fari_on.setVisibility(View.INVISIBLE);
+                 fari_off.setVisibility(View.VISIBLE);
+             }
+                return false;
+            }
+        });
     }
 
 

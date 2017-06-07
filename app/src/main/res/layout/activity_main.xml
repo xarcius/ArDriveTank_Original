@@ -89,7 +89,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/control_ar_drive_tank"
-        android:text="   V: 0.1.3.0"
+        android:text="   V: 0.1.3.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -143,8 +143,8 @@
 
     <TextView
         android:id="@+id/id_text_nome_dispositivo_connesso"
-        android:layout_width="165dp"
-        android:layout_height="63dp"
+        android:layout_width="111dp"
+        android:layout_height="61dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -155,7 +155,8 @@
         app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="463dp" />
 
     <ListView
         android:id="@+id/id_list_bt"
@@ -217,6 +218,37 @@
         app:layout_constraintVertical_bias="0.0">
 
     </WebView>
+
+    <ImageButton
+        android:id="@+id/id_fari_on"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        app:srcCompat="@drawable/fari_on_35x35"
+        app:layout_constraintRight_toLeftOf="@+id/id_text_nome_dispositivo_connesso"
+        android:layout_marginRight="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/id_browser"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="43dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintTop_toBottomOf="@+id/id_led_ardrivetank_verde"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+
+    <ImageButton
+        android:id="@+id/id_fari_off"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="43dp"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:background="@drawable/control_ar_drive_tank"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/id_browser"
+        app:layout_constraintRight_toLeftOf="@+id/id_text_nome_dispositivo_connesso"
+        app:layout_constraintTop_toBottomOf="@+id/id_led_ardrivetank_verde"
+        app:srcCompat="@drawable/fari_off_35x35" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>
