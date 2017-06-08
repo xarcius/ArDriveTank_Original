@@ -35,7 +35,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton imgbtn_bt; //dichiaro il bottone-immagine
+    ImageButton imgbtn_bt, imgbtn_btClose; //dichiaro il bottone-immagine
     ListView list__bt;//dichiaro la listview dove vedrò tutti i dispositivi bt abilitati
     ImageButton imgbtn_forward, imgbtn_back, imgbtn_right, imgbtn_left;//bottoni avanti,indietro,destra,sinistra
     ImageButton led_vuoto, led_rosso, led_verde;//immagini led
@@ -119,12 +119,15 @@ public class MainActivity extends AppCompatActivity {
 
         icona_faro_off();
 
+        CloseConnessioneBt();
+
     }//fine OnCreate
 
     //assegnazione delle variabili ai widgete
     public void assegnazioni(){
         //ASSEGNAZIONE
         imgbtn_bt = (ImageButton) findViewById(R.id.id_imBtn_bt); //assegno la variabile al widget
+        imgbtn_btClose = (ImageButton) findViewById(R.id.id_btClose);
         list__bt = (ListView) findViewById(R.id.id_list_bt);
 
         imgbtn_forward = (ImageButton) findViewById(R.id.id_forward_button);
@@ -154,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         if(connesso == false) {
             //x    //y
             new CountDownTimer(300000, 1500) {
+                                //x  ,  y
                 //esegui X volte, ogni Y millisecondi
                 //1000 = ogni secondo [1000 millisecondi = 1 secondo]
                 public void onTick(long millisUntilFinished) {
@@ -280,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     //si occupa di trovare nuovi dispositivi BT attivi
     private void lista_nuovi_dispositivi(){
         if(!bt_adapter.isDiscovering()){//se il dispositivo non è già alla ricerca di altri dispositivi
@@ -324,11 +327,24 @@ public class MainActivity extends AppCompatActivity {
     private void resetConnection(){
         if(btsocket != null){//se la connessione è stabilita
             try{
+                bt_adapter = null;
+                outStream.close();
                 btsocket.close();//chiude la connessione
+                led_verde.setVisibility(View.INVISIBLE);
+                led_on_off();
             }catch (Exception e){
 
             }
         }
+    }
+
+    public void CloseConnessioneBt(){
+        imgbtn_btClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetConnection();//tenta di chiudere la connessione
+            }
+        });
     }
 
     //contiene la chiamata delle void: forward/back/left/right
@@ -439,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
 
     //si occupa d'inviare comandi al BT di ARDUINO
     public void writeData(String data) {
-        //do {
+
             try {
                 outStream = btsocket.getOutputStream();//si occupa dell'invio del comando
             } catch (IOException e) {
@@ -450,12 +466,12 @@ public class MainActivity extends AppCompatActivity {
             byte[] msgBuffer = mess.getBytes();//trasformo in Bytes il comando
 
             try {
-                outStream.write(msgBuffer);//incia il comando
+                outStream.write(msgBuffer);//invia il comando
                 //Toast.makeText(getApplicationContext(), "Send: " + mess.toString(), Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Error_2: " + e.toString(), Toast.LENGTH_LONG).show();
             }
-        // }while(send_message == false);
+
     }
 
     public void avvio_streaming(){
@@ -549,30 +565,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void icona_faro_on(){
-        fari_on.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                if(StatoFari == false){
-                    writeData("H");
-                    StatoFari = true;
-                    fari_on.setVisibility(View.VISIBLE);
-                    fari_off.setVisibility(View.INVISIBLE);
+        fari_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (connesso == true) {
+                    if (StatoFari == true) {
+                        writeData("H");
+                        StatoFari = false;
+                        fari_on.setVisibility(View.INVISIBLE);
+                        fari_off.setVisibility(View.VISIBLE);
+                    }
                 }
-                return false;
             }
-
         });
     }
 
     public void icona_faro_off(){
-        fari_off.setOnTouchListener(new OnTouchListener(){
-            public boolean onTouch(View v, MotionEvent event){
-             if(StatoFari == true){
-                writeData("H");
-                 StatoFari = false;
-                 fari_on.setVisibility(View.INVISIBLE);
-                 fari_off.setVisibility(View.VISIBLE);
-             }
-                return false;
+        fari_off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (connesso == true) {
+                    if (StatoFari == false) {
+                        writeData("H");
+                        StatoFari = true;
+                        fari_on.setVisibility(View.VISIBLE);
+                        fari_off.setVisibility(View.INVISIBLE);
+                    }
+                }
             }
         });
     }
