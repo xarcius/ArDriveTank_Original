@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="v3d.com.ardrivetank.comandi_activity">
+
+    <TextView
+        android:id="@+id/ISTRUZIONI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="369dp"
+        android:text="Arduino MEGA + HC-05 + L298P"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/H"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="217dp"
+        android:text="H -> Light/Luci/Luzes"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/S"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="272dp"
+        android:text="S -> STOP"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/R"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="168dp"
+        android:text="R -> Right/Destra/Direito"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/L"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="122dp"
+        android:text="L -> Left/Sinistra/Esquerda"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/id_label1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Arduino:"
+        android:layout_marginLeft="121dp"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="78dp"
+        android:text="B -> Back/Indietro/De volta"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+
+    <TextView
+        android:id="@+id/F"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="33dp"
+        android:text="F -> Forward/Avanti/Para a frente"
+        android:textSize="19dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_label1" />
+</android.support.constraint.ConstraintLayout>

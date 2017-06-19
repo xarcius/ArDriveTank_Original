@@ -228,16 +228,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    protected void OnDestroy() {
-        super.onDestroy();
-        if (bt_adapter != null) {
-            bt_adapter.cancelDiscovery();
-            unregisterReceiver(receiver);//elimino la registrazione della trasmissione
-        }
-    }
-    */
-
     //la void SCAN_BT gestisce il click del pulsante
     public void scan_bt() {
         adapter.clear();
@@ -329,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
             try{
                 bt_adapter = null;
                 outStream.close();
+                unregisterReceiver(receiver);
                 btsocket.close();//chiude la connessione
                 led_verde.setVisibility(View.INVISIBLE);
                 led_on_off();
@@ -574,6 +565,8 @@ public class MainActivity extends AppCompatActivity {
                         StatoFari = false;
                         fari_on.setVisibility(View.INVISIBLE);
                         fari_off.setVisibility(View.VISIBLE);
+                        fari_on.setEnabled(false);
+                        fari_off.setEnabled(true);
                     }
                 }
             }
@@ -590,6 +583,8 @@ public class MainActivity extends AppCompatActivity {
                         StatoFari = true;
                         fari_on.setVisibility(View.VISIBLE);
                         fari_off.setVisibility(View.INVISIBLE);
+                        fari_on.setEnabled(true);
+                        fari_off.setEnabled(false);
                     }
                 }
             }

@@ -26,6 +26,6 @@
         "Not connected - BT enabled. Searching for other BT devices</string>
 
 
-
     <string name="title_activity_pre_main">PreMainActivity</string>
+    <string name="title_activity_comandi_activity">comandi_activity</string>
 </resources>
