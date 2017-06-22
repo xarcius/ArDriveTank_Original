@@ -121,9 +121,17 @@ public class MainActivity extends AppCompatActivity {
 
         CloseConnessioneBt();
 
+        back();
+
+        forward();
+
+        left();
+
+        right();
+
     }//fine OnCreate
 
-    //assegnazione delle variabili ai widgete
+    //assegnazione delle variabili ai widget
     public void assegnazioni(){
         //ASSEGNAZIONE
         imgbtn_bt = (ImageButton) findViewById(R.id.id_imBtn_bt); //assegno la variabile al widget
@@ -214,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                     btsocket = connect_device.createRfcommSocketToServiceRecord(myUUID);//chiamo il protocollo RFCOMM. "createRfcommSocketToServiceRecord" si occuperà di stabilire una connessione sicura
                     connesso = true;//fermo il CountDownTimer
                     btsocket.connect();//avvio la connessione
+                    writeData("C");
                     led_rosso.setVisibility(View.GONE);
                     led_vuoto.setVisibility(View.GONE);
                     led_verde.setVisibility(View.VISIBLE);
@@ -292,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                      NuovodeviceName = device.getName();//prendi il nome del device trovato
                      NuovodeviceAddress = device.getAddress();//prendine l'indirizzo
                      //NuovodeviceLegame = device.getBondState();//prendine lo stato di connessione
-                     String _new_device = NuovodeviceName + "\n" + NuovodeviceAddress;//uniscili
+                     //String _new_device = NuovodeviceName + "\n" + NuovodeviceAddress;//uniscili
                      /*
                      switch (NuovodeviceLegame){
                          case 10: StatoLegameDevice = "Non connesso"; break;
@@ -302,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
                      }
                      adapter.add(_new_device + "\n" + "Stato: " + StatoLegameDevice);
                      */
-                     adapter.add(_new_device);
+                     adapter.add(NuovodeviceName);
                 }
             }//fine onReceive
                     //fine new BroadcastReceiver
@@ -317,12 +326,13 @@ public class MainActivity extends AppCompatActivity {
     private void resetConnection(){
         if(btsocket != null){//se la connessione è stabilita
             try{
+                writeData("D");
+                led_on_off();
                 bt_adapter = null;
                 outStream.close();
                 unregisterReceiver(receiver);
                 btsocket.close();//chiude la connessione
                 led_verde.setVisibility(View.INVISIBLE);
-                led_on_off();
             }catch (Exception e){
 
             }
@@ -340,24 +350,26 @@ public class MainActivity extends AppCompatActivity {
 
     //contiene la chiamata delle void: forward/back/left/right
     public void comandi(){
-        //FORWARD
-        forward();
+        if(connesso == true) {
 
-        //BACK
-        back();
+            //FORWARD
+            forward();
 
-
-
-        //RIGHT
-        right();
+            //BACK
+            back();
 
 
-        //LEFT
-        left();
+            //RIGHT
+            right();
+
+
+            //LEFT
+            left();
+        }
     }
 
     public void forward(){
-        imgbtn_forward.setOnTouchListener(new OnTouchListener() {
+        imgbtn_forward.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event){
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     try{
@@ -379,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void back(){
-        imgbtn_back.setOnTouchListener(new OnTouchListener() {
+        imgbtn_back.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -401,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void right(){
-        imgbtn_right.setOnTouchListener(new OnTouchListener() {
+        imgbtn_right.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -423,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void left(){
-        imgbtn_left.setOnTouchListener(new OnTouchListener() {
+        imgbtn_left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -446,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
 
     //si occupa d'inviare comandi al BT di ARDUINO
     public void writeData(String data) {
-
+        if(connesso == true) {
             try {
                 outStream = btsocket.getOutputStream();//si occupa dell'invio del comando
             } catch (IOException e) {
@@ -462,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Error_2: " + e.toString(), Toast.LENGTH_LONG).show();
             }
-
+        }
     }
 
     public void avvio_streaming(){
