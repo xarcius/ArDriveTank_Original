@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.media.Image;
 import android.os.CountDownTimer;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -22,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     ImageButton led_vuoto, led_rosso, led_verde;//immagini led
     ImageButton fari_off, fari_on;
     TextView label_nome_dispositivo_connesso;//testo del dispositivo a cui è connesso
+
+    RadioButton torque_1, torque_2;
+    RadioGroup rg;
 
     private BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter(); //cerca i dispositivi nelle vicinanze con cui comunicare
 
@@ -129,6 +135,9 @@ public class MainActivity extends AppCompatActivity {
 
         right();
 
+        rbselectionTorque();
+
+
     }//fine OnCreate
 
     //assegnazione delle variabili ai widget
@@ -155,6 +164,11 @@ public class MainActivity extends AppCompatActivity {
 
         fari_off = (ImageButton) findViewById(R.id.id_fari_off);
         fari_on = (ImageButton) findViewById(R.id.id_fari_on);
+
+        torque_1 = (RadioButton) findViewById(R.id.id_torque_1);
+        torque_2 = (RadioButton) findViewById(R.id.id_torque_2);
+
+        rg = (RadioGroup) findViewById(R.id.id_RadioGroup);
     }
 
     //lampeggiamento led
@@ -239,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
     //la void SCAN_BT gestisce il click del pulsante
     public void scan_bt() {
+        resetConnection();//chiudo precedenti connessioni [v0154]
         adapter.clear();
         if (bt_adapter == null) {
             Toast.makeText(getApplicationContext(), R.string.bt_non_supportato_IT, Toast.LENGTH_LONG).show();
@@ -296,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
                 String action = intent.getAction();
                  if(BluetoothDevice.ACTION_FOUND.equals(action)){//quando trovi un dispositivo
                      //getParcelableExtra => recupero informazioni dal nuovo dispositivo
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//creo un oggetto "device" che mi fornirà i dati del nuovo dispositivo trovato, trasferitemi da "getParcelableExtra"
+                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);//creo un oggetto "device" che mi fornirà i dati del nuovo dispositivo trovato, trasferitemi da "getParcelableExtra"
                      //if(device.getBondState() != BluetoothDevice.BOND_BONDED)//se il dispositivo non è collegato a nessun altro dispositivo
                      NuovodeviceName = device.getName();//prendi il nome del device trovato
                      NuovodeviceAddress = device.getAddress();//prendine l'indirizzo
@@ -602,6 +617,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void rbselectionTorque(){
+        torque_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (connesso == true) {
+                    torque_2.setChecked(false);
+                    writeData("1");
+                }else {
+                    torque_1.setChecked(false);
+                    torque_2.setChecked(false);
+                }
+            }
+        });
+
+        torque_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(connesso == true) {
+                    torque_1.setChecked(false);
+                    writeData("2");
+                }else{
+                    torque_1.setChecked(false);
+                    torque_2.setChecked(false);
+                }
+            }
+        });
+    }
+
 
 
 }//fine MainActivity
